@@ -1,0 +1,1 @@
+export const configurationsContent = "This is the configurations content"

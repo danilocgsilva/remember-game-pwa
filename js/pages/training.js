@@ -1,0 +1,1 @@
+export const trainingContent = "This is a training page"

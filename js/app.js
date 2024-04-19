@@ -1,18 +1,19 @@
 import 'bulma/css/bulma.css'
+import './mobile_menu.js'
 import { createTermContent } from './pages/create_term.js'
 import { trainingContent } from './pages/training.js'
 import { configurationsContent } from './pages/configurations.js'
+import { listTermContent } from './pages/list_terms.js'
+
+function prepareShow(elementId, content) {
+  document.getElementById(elementId).addEventListener("click", function() {
+    contentAreaElement.innerHTML = content
+  })  
+}
 
 const contentAreaElement = document.getElementById('contentArea')
 
-document.getElementById('createTerms').addEventListener("click", function() {
-  contentAreaElement.innerHTML = createTermContent
-})
-
-document.getElementById('training').addEventListener("click", function() {
-  contentAreaElement.innerHTML = trainingContent
-})
-
-document.getElementById('configurations').addEventListener("click", function() {
-  contentAreaElement.innerHTML = configurationsContent
-})
+prepareShow('createTerms', createTermContent)
+prepareShow('training', trainingContent)
+prepareShow('configurations', configurationsContent)
+prepareShow('listing', listTermContent)

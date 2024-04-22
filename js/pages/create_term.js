@@ -26,7 +26,7 @@ export const createTermContent = `
   <div class="field-body">
     <div class="field">
       <div class="control">
-        <button class="button is-primary">Register</button>
+        <button id="add_term_button" class="button is-primary">Register</button>
       </div>
     </div>
   </div>

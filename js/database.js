@@ -4,7 +4,7 @@ const contentAreaElement = document.getElementById('contentArea')
 
 let db
 let objectStore
-const request = window.indexedDB.open("memorygame", 1);
+const request = window.indexedDB.open("memorygame3", 1);
 request.onerror = (event) => {
     alert("Got an error!!")
 }
@@ -18,25 +18,28 @@ request.onsuccess = (event) => {
 request.onupgradeneeded = (event) => {
     db = event.target.result
     objectStore = db.createObjectStore("myObjectStore", { keyPath: "id" })
+    // objectStore.createIndex("nameIndex", "name", { unique: false })
 }
 
 document.getElementById('createTerms').addEventListener("click", function () {
     contentAreaElement.innerHTML = createTermContent
     document.getElementById('save_term').addEventListener('submit', (event) => {
         event.preventDefault()
-        
+
         let newTerm = event.target.elements.namedItem('new_term').value
         let equivalent = event.target.elements.namedItem('term_equivalent').value
 
-        const firstData = [
-            {
-                key: newTerm,
-                equivalents: equivalent
-            }
-        ]
+        let transaction = db.transaction("myObjectStore", "readwrite")
+        let objectStoreAdd = transaction.objectStore("myObjectStore")
 
-        let transaction = db.transaction([""])
+        const firstData = {
+            id: newTerm,
+            equivalents: equivalent
+        }
 
-        alert(`Adding stuffs: ${newTerm}, ${equivalent}`)
+        let addRequest = objectStoreAdd.add(firstData)
+        addRequest.onsuccess = function (event) {
+            alert(`Data added with success! ${firstData.id}, ${firstData.equivalents}`)
+        }
     })
 })
